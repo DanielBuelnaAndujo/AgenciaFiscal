@@ -52,6 +52,8 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txfTelefono = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +71,6 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("RFC:");
 
-        txfRFC.setEditable(false);
         txfRFC.setBackground(new java.awt.Color(217, 217, 217));
 
         jPanel2.setBackground(new java.awt.Color(217, 217, 217));
@@ -129,6 +130,11 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Télefono:");
+
+        txfTelefono.setBackground(new java.awt.Color(217, 217, 217));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -143,13 +149,17 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txfRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txfRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(157, 157, 157)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(29, 29, 29))
         );
@@ -161,7 +171,9 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txfRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(txfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,12 +186,28 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
         txfRFC.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                //
+                mostrarPersonas();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                //
+                mostrarPersonas();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+        txfTelefono.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                mostrarPersonas();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                mostrarPersonas();
             }
 
             @Override
@@ -208,7 +236,13 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
     
     private void mostrarPersonas() {
-        List<PersonaViejaDTO> personas;
+        pnlContenedor.removeAll();
+        
+        List<PersonaViejaDTO> personas = control.obtenerPersonas(txfRFC.getText(), txfTelefono.getText());
+        personas.forEach(p -> pnlContenedor.add(new PnlPersona(p)));
+        
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
     } 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -220,10 +254,12 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlContenedor;
     private javax.swing.JTextField txfRFC;
+    private javax.swing.JTextField txfTelefono;
     // End of variables declaration//GEN-END:variables
 }

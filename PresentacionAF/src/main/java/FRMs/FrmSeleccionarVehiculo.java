@@ -3,7 +3,6 @@ package FRMs;
 import Control.ControlNavegacion;
 import DTOs.PersonaViejaDTO;
 import DTOs.SeleccionarVehiculoDTO;
-import DTOs.VehiculoViejoDTO;
 import java.util.List;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -235,14 +234,18 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVehiculoNuevoActionPerformed
 
     private void mostrarVehiculos() {
+        pnlContenedor.removeAll();
+        
         PersonaViejaDTO p = control.getPersonaVieja();
         
         List<SeleccionarVehiculoDTO> vehiculos = control.obtenerVehiculos(
                 p.getId(),
                 txfNoPlaca.getText()
         );
-        
         vehiculos.forEach(v -> pnlContenedor.add(new PnlVehiculo(v)));
+        
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

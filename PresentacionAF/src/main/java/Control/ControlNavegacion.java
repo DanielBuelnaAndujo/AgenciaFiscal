@@ -1,6 +1,7 @@
 package Control;
 
 import DTOs.HistorialPlacasDTO;
+import DTOs.PersonaNuevaDTO;
 import DTOs.PersonaViejaDTO;
 import DTOs.PlacasNuevasDTO;
 import DTOs.SeleccionarVehiculoDTO;
@@ -23,6 +24,7 @@ import Interfaces.IPersonaBO;
 import Interfaces.IPlacasBO;
 import Interfaces.IVehiculoBO;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -46,6 +48,7 @@ public class ControlNavegacion {
     private PlacasNuevasDTO placasNuevas;
             
     private Double costoLicensia = 0.0;
+    private boolean insercionMasiva = true;
 
     private ControlNavegacion() {
     }
@@ -212,4 +215,24 @@ public class ControlNavegacion {
         return false;
     }
             
+    public void insercionMasivaPersonas() {
+        if (!insercionMasiva) {
+            JOptionPane.showMessageDialog(null, "Error: " + "Ya se realizo la inserción masiva", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        PersonaNuevaDTO p1 = new PersonaNuevaDTO("nombre1", "apellidoPaterno1", "apellidoMaterno1", "1", LocalDate.of(2000, 1, 1), "rfc1");
+        PersonaNuevaDTO p2 = new PersonaNuevaDTO("nombre2", "apellidoPaterno2", "apellidoMaterno2", "2", LocalDate.of(2000, 1, 1), "rfc2");
+        
+        try {
+            personaBO.registrarPersonaYLisencia(p1, 1);
+            personaBO.registrarPersonaYLisencia(p2, 2);
+            
+            JOptionPane.showMessageDialog(null, "Se registraron las Personas.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            
+            insercionMasiva = false;
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

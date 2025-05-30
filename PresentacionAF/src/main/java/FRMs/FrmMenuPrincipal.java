@@ -47,6 +47,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnRegistroMasivoPersonas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRegistroMasivoPersonas.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistroMasivoPersonas.setText("Registro \"masivo\" de Personas");
+        btnRegistroMasivoPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroMasivoPersonasActionPerformed(evt);
+            }
+        });
 
         btnPersonas.setBackground(new java.awt.Color(0, 0, 0));
         btnPersonas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -121,6 +126,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnRegistroMasivoPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroMasivoPersonasActionPerformed
+        control.insercionMasivaPersonas();
+    }//GEN-LAST:event_btnRegistroMasivoPersonasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPersonas;

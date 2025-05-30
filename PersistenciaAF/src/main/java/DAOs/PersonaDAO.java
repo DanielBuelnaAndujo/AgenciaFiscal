@@ -7,10 +7,13 @@ import Exception.PersistenciaException;
 import Interfaces.IPersonaDAO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -80,6 +83,32 @@ public class PersonaDAO implements IPersonaDAO {
             return personas;
         } catch (SQLException ex) {
             throw new PersistenciaException("No se pudo consultar la lista de Personas.");
+        }
+    }
+
+    @Override
+    public boolean registrarPersonaYLicencia(Persona p, int vigencia) throws PersistenciaException {
+        String consultaSQL = "{CALL insertar_persona_y_lisencia(?, ?, ?, ?, ?, ?, ?)}";
+        
+        try (Connection con = conexion.crearConexion();
+                CallableStatement cb = con.prepareCall(consultaSQL)) {
+            
+            cb.setString(1, p.getNombre());
+            cb.setString(2, p.getApellidoPaterno());
+            cb.setString(3, p.getApellidoMaterno());
+            cb.setString(4, p.getTelefono());
+            cb.setDate(5, Date.valueOf(p.getFechaNacimiento()));
+            cb.setString(6, p.getRfc());
+            cb.setInt(7, vigencia);
+            
+            int resultados = cb.executeUpdate();
+            if (resultados == 0) {
+                return false;
+            }
+            
+            return true;  
+        } catch (SQLException ex) {
+            throw new PersistenciaException("No se pudo registrar a la Persona y su Licencia.");
         }
     }
     
