@@ -32,6 +32,10 @@ public class Placas extends Tramite {
         this.idVehiculo = idVehiculo;
     }
 
+    public Placas(Integer idVehiculo) {
+        this.idVehiculo = idVehiculo;
+    }
+
     public String getNumero() {
         return numero;
     }
