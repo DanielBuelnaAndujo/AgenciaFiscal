@@ -11,5 +11,6 @@ import java.util.List;
 public interface IPersonaBO {
     
     public List<PersonaViejaDTO> obtenerPersonas() throws NegocioException;
+    public List<PersonaViejaDTO> obtenerPersonas(String rfc, String telefono) throws NegocioException;
     
 }

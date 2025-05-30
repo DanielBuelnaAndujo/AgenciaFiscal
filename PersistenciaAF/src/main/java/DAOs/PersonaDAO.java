@@ -51,5 +51,36 @@ public class PersonaDAO implements IPersonaDAO {
             throw new PersistenciaException("No se pudo consultar la lista de Personas.");
         }
     }
+
+    @Override
+    public List<Persona> obtenerPersonas(String rfc, String telefono) throws PersistenciaException {
+        String consultaSQL = "{CALL consultar_persona_por_rfc_y_telefono(?, ?)}";
+        
+        try (Connection con = conexion.crearConexion();
+                CallableStatement cb = con.prepareCall(consultaSQL)) {
+            
+            cb.setString(1, rfc);
+            cb.setString(2, telefono);
+            
+            List<Persona> personas = new ArrayList<>();
+            try (ResultSet rs = cb.executeQuery()) {
+                while (rs.next()) {
+                    personas.add(new Persona(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("apellidoPaterno"),
+                            rs.getString("apellidoMaterno"),
+                            rs.getString("telefono"),
+                            rs.getDate("fechaNacimiento").toLocalDate(),
+                            rs.getString("rfc")
+                    ));
+                }
+            }
+            
+            return personas;
+        } catch (SQLException ex) {
+            throw new PersistenciaException("No se pudo consultar la lista de Personas.");
+        }
+    }
     
 }

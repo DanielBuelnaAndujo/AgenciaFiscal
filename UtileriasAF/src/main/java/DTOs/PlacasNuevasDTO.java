@@ -7,12 +7,14 @@ package DTOs;
 public class PlacasNuevasDTO {
     
     private String idVehiculo;
+    private String idPersona;
 
     public PlacasNuevasDTO() {
     }
 
-    public PlacasNuevasDTO(String idVehiculo) {
+    public PlacasNuevasDTO(String idVehiculo, String idPersona) {
         this.idVehiculo = idVehiculo;
+        this.idPersona = idPersona;
     }
 
     public String getIdVehiculo() {
@@ -23,9 +25,17 @@ public class PlacasNuevasDTO {
         this.idVehiculo = idVehiculo;
     }
 
+    public String getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(String idPersona) {
+        this.idPersona = idPersona;
+    }
+
     @Override
     public String toString() {
-        return "PlacasNuevasDTO{" + "idVehiculo=" + idVehiculo + '}';
+        return "PlacasNuevasDTO{" + "idVehiculo=" + idVehiculo + ", idPersona=" + idPersona + '}';
     }
     
 }

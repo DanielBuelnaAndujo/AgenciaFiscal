@@ -32,7 +32,8 @@ public class Placas extends Tramite {
         this.idVehiculo = idVehiculo;
     }
 
-    public Placas(Integer idVehiculo) {
+    public Placas(Integer idVehiculo, Integer idPersona) {
+        super(idPersona);
         this.idVehiculo = idVehiculo;
     }
 

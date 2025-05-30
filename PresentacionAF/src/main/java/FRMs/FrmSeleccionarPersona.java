@@ -3,6 +3,8 @@ package FRMs;
 import Control.ControlNavegacion;
 import DTOs.PersonaViejaDTO;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -169,6 +171,23 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
+        txfRFC.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                //
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                //
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,6 +206,10 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
         control.mostrarFrmMenuPrincipal();
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+    
+    private void mostrarPersonas() {
+        List<PersonaViejaDTO> personas;
+    } 
     
     /**
      * @param args the command line arguments

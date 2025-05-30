@@ -29,6 +29,10 @@ public abstract class Tramite {
         this.idPersona = idPersona;
     }
 
+    public Tramite(Integer idPersona) {
+        this.idPersona = idPersona;
+    }
+
     public Integer getId() {
         return id;
     }

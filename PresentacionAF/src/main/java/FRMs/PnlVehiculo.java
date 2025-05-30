@@ -1,6 +1,7 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import DTOs.PlacasNuevasDTO;
 import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoViejoDTO;
 import javax.swing.SwingUtilities;
@@ -84,6 +85,11 @@ public class PnlVehiculo extends javax.swing.JPanel {
         btnSeleccionar.setBackground(new java.awt.Color(0, 0, 0));
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         btnHistorialPlacas.setBackground(new java.awt.Color(0, 0, 0));
         btnHistorialPlacas.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,6 +144,15 @@ public class PnlVehiculo extends javax.swing.JPanel {
         ControlNavegacion.getInstancia().mostrarFrmHistorialPlacas();
         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_btnHistorialPlacasActionPerformed
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        ControlNavegacion.getInstancia().getVehiculoViejoDTO().setId(vehiculo.getId());
+        ControlNavegacion.getInstancia().setCostoLicensia(1000.0);
+        ControlNavegacion.getInstancia().setPlacasNuevas(new PlacasNuevasDTO());
+        
+        ControlNavegacion.getInstancia().mostrarFrmOpcionesPago();
+        SwingUtilities.getWindowAncestor(this).dispose();
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,9 @@ package FRMs;
 
 import Control.ControlNavegacion;
 import DTOs.HistorialPlacasDTO;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.optionalusertools.DateChangeListener;
+import com.github.lgooddatepicker.zinternaltools.DateChangeEvent;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,12 +23,9 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
         initComponents();
         setTitle("Historial Placas");
         
-        List<HistorialPlacasDTO> placas = control.obtenerHistorialPlacas(
-                control.getVehiculoViejoDTO().getId(),
-                null
-        );
+        mostrarCalendario();
         
-        placas.forEach(p -> pnlContenedor.add(new PnlPlacas(p)));
+        mostrarHistorial(null);
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -53,6 +53,7 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
+        pnlFecha = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +134,8 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
             }
         });
 
+        pnlFecha.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,27 +143,32 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(240, 240, 240))
+                .addGap(251, 251, 251))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(pnlFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
                 .addGap(18, 18, 18))
@@ -185,6 +193,32 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void mostrarCalendario() {
+        DatePicker datePicker = new DatePicker();
+        pnlFecha.add(datePicker);
+        
+        datePicker.getComponentDateTextField().setEditable(false);
+        
+        datePicker.addDateChangeListener(event -> {
+            LocalDate nuevaFecha = event.getNewDate();
+            mostrarHistorial(nuevaFecha);
+        });
+    }
+    
+    private void mostrarHistorial(LocalDate fecha) {
+        pnlContenedor.removeAll();
+        
+        List<HistorialPlacasDTO> placas = control.obtenerHistorialPlacas(
+                control.getVehiculoViejoDTO().getId(),
+                fecha
+        );
+        
+        placas.forEach(p -> pnlContenedor.add(new PnlPlacas(p)));
+        
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -234,5 +268,6 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlContenedor;
+    private javax.swing.JPanel pnlFecha;
     // End of variables declaration//GEN-END:variables
 }

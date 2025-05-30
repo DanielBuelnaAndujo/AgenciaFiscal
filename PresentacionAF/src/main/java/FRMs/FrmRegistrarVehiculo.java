@@ -222,7 +222,7 @@ public class FrmRegistrarVehiculo extends javax.swing.JFrame {
         
         control.setCostoLicensia(1500.0);
         
-        control.mostrarFrmPagoPlacas();
+        control.mostrarFrmOpcionesPago();
         this.dispose();
     }//GEN-LAST:event_btnSiguienteActionPerformed
 

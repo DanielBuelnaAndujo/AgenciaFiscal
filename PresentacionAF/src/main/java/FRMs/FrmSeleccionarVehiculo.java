@@ -5,6 +5,8 @@ import DTOs.PersonaViejaDTO;
 import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoViejoDTO;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -21,14 +23,9 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
         initComponents();
         setTitle("Seleccionar Vehiculo");
         
-        PersonaViejaDTO p = control.getPersonaVieja();
+        control.setPlacasNuevas(null);
         
-        List<SeleccionarVehiculoDTO> vehiculos = control.obtenerVehiculos(
-                p.getId(),
-                txfNoPlaca.getText()
-        );
-        
-        vehiculos.forEach(v -> pnlContenedor.add(new PnlVehiculo(v)));
+        mostrarVehiculos();
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -154,10 +151,6 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(244, 244, 244))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +168,10 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 34, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(294, 294, 294))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,6 +192,23 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
                     .addComponent(btnRegresar))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        txfNoPlaca.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                mostrarVehiculos();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                mostrarVehiculos();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,6 +234,17 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVehiculoNuevoActionPerformed
 
+    private void mostrarVehiculos() {
+        PersonaViejaDTO p = control.getPersonaVieja();
+        
+        List<SeleccionarVehiculoDTO> vehiculos = control.obtenerVehiculos(
+                p.getId(),
+                txfNoPlaca.getText()
+        );
+        
+        vehiculos.forEach(v -> pnlContenedor.add(new PnlVehiculo(v)));
+    }
+    
     /**
      * @param args the command line arguments
      */

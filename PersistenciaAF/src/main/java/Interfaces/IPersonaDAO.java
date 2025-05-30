@@ -11,5 +11,6 @@ import java.util.List;
 public interface IPersonaDAO {
     
     public List<Persona> obtenerPersonas() throws PersistenciaException;
+    public List<Persona> obtenerPersonas(String rfc, String telefono) throws PersistenciaException;
     
 }

@@ -201,7 +201,7 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
             if (pago < cantidadPagar) {
                 JOptionPane.showMessageDialog(null, "Cantidad Insuficiente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
-                control.registrarVehiculo();
+                pagar();
 
                 control.mostrarFrmSeleccionarVehiculo();
                 this.dispose();
@@ -210,7 +210,15 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cantidad Ivalida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnPagarActionPerformed
-
+    
+    private void pagar() {
+        if (control.getPlacasNuevas() == null) {
+            control.registrarVehiculo();
+        } else {
+            control.registrarPlacas();
+        }
+    }
+    
     private void calcularCambio() {
         if (txfPago.getText().matches("\\d+")) {
             double cantidadPagar = control.getCostoLicensia();

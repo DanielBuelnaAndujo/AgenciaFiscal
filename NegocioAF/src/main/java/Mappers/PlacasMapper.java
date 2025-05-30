@@ -14,7 +14,8 @@ public class PlacasMapper {
             return null;
         }
         return new Placas(
-                Integer.valueOf(p.getIdVehiculo())
+                Integer.valueOf(p.getIdVehiculo()),
+                Integer.valueOf(p.getIdPersona())
         );
     }
 }

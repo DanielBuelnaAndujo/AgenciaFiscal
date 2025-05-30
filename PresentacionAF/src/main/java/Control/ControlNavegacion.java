@@ -9,7 +9,9 @@ import DTOs.VehiculoViejoDTO;
 import Exception.NegocioException;
 import FRMs.FrmHistorialPlacas;
 import FRMs.FrmMenuPrincipal;
+import FRMs.FrmOpcionesPago;
 import FRMs.FrmPagoPlacas;
+import FRMs.FrmPagoTarjeta;
 import FRMs.FrmRegistrarVehiculo;
 import FRMs.FrmSeleccionarPersona;
 import FRMs.FrmSeleccionarVehiculo;
@@ -38,9 +40,19 @@ public class ControlNavegacion {
     private PersonaViejaDTO personaVieja;
     private VehiculoNuevoDTO vehiculoNuevo = new VehiculoNuevoDTO();
     private VehiculoViejoDTO vehiculoViejoDTO = new VehiculoViejoDTO();
+    private PlacasNuevasDTO placasNuevas;
+            
     private Double costoLicensia = 0.0;
 
     private ControlNavegacion() {
+    }
+
+    public PlacasNuevasDTO getPlacasNuevas() {
+        return placasNuevas;
+    }
+
+    public void setPlacasNuevas(PlacasNuevasDTO placasNuevas) {
+        this.placasNuevas = placasNuevas;
     }
     
     public static ControlNavegacion getInstancia() {
@@ -110,6 +122,14 @@ public class ControlNavegacion {
         new FrmPagoPlacas().setVisible(true);
     }
     
+    public void mostrarFrmOpcionesPago() {
+        new FrmOpcionesPago().setVisible(true);
+    }
+    
+    public void mostrarFrmPagoTarjeta() {
+        new FrmPagoTarjeta().setVisible(true);
+    }
+    
     public List<PersonaViejaDTO> obtenerPersonas() {
         try {
             return personaBO.obtenerPersonas();
@@ -130,9 +150,12 @@ public class ControlNavegacion {
         return new ArrayList<>();
     }
     
-    public void registrarPlacas(PlacasNuevasDTO placas) {
+    public void registrarPlacas() {
+        placasNuevas.setIdPersona(personaVieja.getId());
+        placasNuevas.setIdVehiculo(vehiculoViejoDTO.getId());
+        
         try {
-            boolean exito = placasBO.registrarPlacas(placas);
+            boolean exito = placasBO.registrarPlacas(placasNuevas);
             if (exito) {
                 JOptionPane.showMessageDialog(null, "Se registraron las Placas al Vehiculo Viejo.", "Información", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -162,6 +185,16 @@ public class ControlNavegacion {
         } catch(NegocioException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public List<PersonaViejaDTO> obtenerPersonas(String rfc, String telefono) {
+        try {
+            return personaBO.obtenerPersonas(rfc, telefono);
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return new ArrayList<>();
     }
             
 }

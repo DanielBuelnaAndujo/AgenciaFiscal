@@ -36,5 +36,20 @@ public class PersonaBO implements IPersonaBO {
             throw new NegocioException("No se pudo obtener la lista de Personas.");
         }
     }
+
+    @Override
+    public List<PersonaViejaDTO> obtenerPersonas(String rfc, String telefono) throws NegocioException {
+        try {
+            List<Persona> personas = personaDAO.obtenerPersonas(rfc, telefono);
+            
+            List<PersonaViejaDTO> personasDTO = personas.stream()
+                                                        .map(PersonaMapper::toViejoDTO)
+                                                        .collect(Collectors.toList());
+            
+            return personasDTO;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo obtener la lista de Personas.");
+        }
+    }
     
 }
