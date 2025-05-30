@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface IVehiculoBO {
     
-    public List<VehiculoViejoDTO> obtenerVehiculos() throws NegocioException;
+    public List<VehiculoViejoDTO> obtenerVehiculos(String idPersona, String numPlacas) throws NegocioException;
     public boolean registrarVehiculo(VehiculoNuevoDTO vehiculo) throws NegocioException;
     
 }

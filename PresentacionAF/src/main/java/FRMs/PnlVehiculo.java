@@ -1,6 +1,7 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import DTOs.VehiculoViejoDTO;
 import javax.swing.SwingUtilities;
 
 /**
@@ -9,11 +10,16 @@ import javax.swing.SwingUtilities;
  */
 public class PnlVehiculo extends javax.swing.JPanel {
 
+    private VehiculoViejoDTO vehiculo;
+    
     /**
      * Creates new form PnlVehiculo
      */
-    public PnlVehiculo() {
+    public PnlVehiculo(VehiculoViejoDTO v) {
         initComponents();
+        this.vehiculo = v;
+        
+        txfNoPlacas.setText("");
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IVehiculoDAO {
     
-    public List<Vehiculo> obtenerVehiculos() throws PersistenciaException;
+    public List<Vehiculo> obtenerVehiculos(String idPersona, String numPlacas) throws PersistenciaException;
     public boolean registrarVehiculo(Vehiculo vehiculo) throws PersistenciaException;
     
 }

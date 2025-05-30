@@ -1,5 +1,7 @@
 package FRMs;
 
+import Control.ControlNavegacion;
+import DTOs.PersonaViejaDTO;
 import javax.swing.SwingUtilities;
 
 /**
@@ -8,12 +10,20 @@ import javax.swing.SwingUtilities;
  */
 public class PnlPersona extends javax.swing.JPanel {
 
+    private PersonaViejaDTO persona;
+    
     /**
      * Creates new form PnlPersona
      */
-    public PnlPersona() {
+    public PnlPersona(PersonaViejaDTO p) {
         initComponents();
+        this.persona = p;
         
+        txfNombre.setText(p.getNombre());
+        txfApellidoPaterno.setText(p.getApellidoPaterno());
+        txfApellidoMaterno.setText(p.getApellidoMaterno());
+        txfTelefono.setText(p.getTelefono());
+        txfRFC.setText(p.getRfc());
     }
 
     /**
@@ -105,6 +115,8 @@ public class PnlPersona extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        ControlNavegacion.getInstancia().setPersonaVieja(persona);
+        
         Control.ControlNavegacion.getInstancia().mostrarFrmTramites();
         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_btnSeleccionarActionPerformed

@@ -3,6 +3,7 @@ package Interfaces;
 import DTOs.HistorialPlacasDTO;
 import Entidades.Placas;
 import Exception.PersistenciaException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -11,6 +12,6 @@ import java.util.List;
  */
 public interface IPlacasDAO {
     
-    public List<HistorialPlacasDTO> obtenerHistorialPlacas() throws PersistenciaException;
+    public List<HistorialPlacasDTO> obtenerHistorialPlacas(String idVehiculo, LocalDate fechaTramite) throws PersistenciaException;
     public boolean registrarPlacas(Placas placas) throws PersistenciaException;
 }

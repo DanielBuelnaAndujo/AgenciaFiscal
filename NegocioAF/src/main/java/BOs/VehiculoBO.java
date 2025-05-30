@@ -24,9 +24,9 @@ public class VehiculoBO implements IVehiculoBO {
     }
     
     @Override
-    public List<VehiculoViejoDTO> obtenerVehiculos() throws NegocioException {
+    public List<VehiculoViejoDTO> obtenerVehiculos(String idPersona, String numPlacas) throws NegocioException {
         try {
-            List<Vehiculo> vehiculos = vehiculoDAO.obtenerVehiculos();
+            List<Vehiculo> vehiculos = vehiculoDAO.obtenerVehiculos(idPersona, numPlacas);
             
             return vehiculos.stream()
                             .map(VehiculoMapper::toViejoDTO)

@@ -8,6 +8,7 @@ import Exception.PersistenciaException;
 import Interfaces.IPlacasBO;
 import Interfaces.IPlacasDAO;
 import Mappers.PlacasMapper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,9 +24,9 @@ public class PlacasBO implements IPlacasBO {
     }
     
     @Override
-    public List<HistorialPlacasDTO> obtenerHistorialPlacas() throws NegocioException {
+    public List<HistorialPlacasDTO> obtenerHistorialPlacas(String idVehiculo, LocalDate fechaTramite) throws NegocioException {
         try {
-            List<HistorialPlacasDTO> placasDTO = placasDAO.obtenerHistorialPlacas();
+            List<HistorialPlacasDTO> placasDTO = placasDAO.obtenerHistorialPlacas(idVehiculo, fechaTramite);
             
             return placasDTO;
         } catch(PersistenciaException e) {

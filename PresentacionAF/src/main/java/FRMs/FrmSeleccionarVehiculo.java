@@ -1,6 +1,9 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import DTOs.PersonaViejaDTO;
+import DTOs.VehiculoViejoDTO;
+import java.util.List;
 
 /**
  *
@@ -17,9 +20,14 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
         initComponents();
         setTitle("Seleccionar Vehiculo");
         
-        for (int i = 0; i < 10; i++) {
-            pnlContenedor.add(new PnlVehiculo());
-        }
+        PersonaViejaDTO p = control.getPersonaVieja();
+        
+        List<VehiculoViejoDTO> vehiculos = control.obtenerVehiculos(
+                p.getId(),
+                txfNoPlaca.getText()
+        );
+        
+        vehiculos.forEach(v -> pnlContenedor.add(new PnlVehiculo(v)));
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

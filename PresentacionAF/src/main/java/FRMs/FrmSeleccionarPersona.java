@@ -1,6 +1,8 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import DTOs.PersonaViejaDTO;
+import java.util.List;
 
 /**
  *
@@ -17,9 +19,10 @@ public class FrmSeleccionarPersona extends javax.swing.JFrame {
         initComponents();
         setTitle("Seleccionar Persona");
         
-        for (int i = 0; i < 10; i++) {
-            pnlContenedor.add(new PnlPersona());
-        }
+        control.setPersonaVieja(null);
+        
+        List<PersonaViejaDTO> personas = control.obtenerPersonas();
+        personas.forEach(p -> pnlContenedor.add(new PnlPersona(p)));
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
