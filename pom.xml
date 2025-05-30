@@ -8,6 +8,8 @@
     <modules>
         <module>PresentacionAF</module>
         <module>UtileriasAF</module>
+        <module>NegocioAF</module>
+        <module>PersistenciaAF</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

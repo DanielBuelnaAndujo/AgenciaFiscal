@@ -6,7 +6,7 @@
         <artifactId>AgenciaFiscal_260378</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>PresentacionAF</artifactId>
+    <artifactId>PersistenciaAF</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -14,15 +14,10 @@
             <artifactId>UtileriasAF</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>NegocioAF</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>com.mycompany.presentacionaf.PresentacionAF</exec.mainClass>
+        <exec.mainClass>com.mycompany.persistenciaaf.PersistenciaAF</exec.mainClass>
     </properties>
 </project>
