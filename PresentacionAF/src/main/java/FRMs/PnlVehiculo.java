@@ -1,6 +1,7 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoViejoDTO;
 import javax.swing.SwingUtilities;
 
@@ -10,16 +11,21 @@ import javax.swing.SwingUtilities;
  */
 public class PnlVehiculo extends javax.swing.JPanel {
 
-    private VehiculoViejoDTO vehiculo;
+    private SeleccionarVehiculoDTO vehiculo;
     
     /**
      * Creates new form PnlVehiculo
      */
-    public PnlVehiculo(VehiculoViejoDTO v) {
+    public PnlVehiculo(SeleccionarVehiculoDTO v) {
         initComponents();
         this.vehiculo = v;
         
-        txfNoPlacas.setText("");
+        txfNoPlacas.setText(v.getNumPlacas());
+        txfMarca.setText(v.getMarca());
+        txfLinea.setText(v.getLinea());
+        txfColor.setText(v.getColor());
+        txfModelo.setText(v.getModelo());
+        txfTipo.setText(v.getTipo());
     }
 
     /**
@@ -71,6 +77,7 @@ public class PnlVehiculo extends javax.swing.JPanel {
 
         txfTipo.setEditable(false);
         txfTipo.setBackground(new java.awt.Color(217, 217, 217));
+        txfTipo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txfTipo.setText("jTextField1");
         txfTipo.setBorder(null);
 

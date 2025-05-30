@@ -1,5 +1,7 @@
 package Mappers;
 
+import DTOs.SeleccionarVehiculoDTO;
+import DTOs.SeleccionarVehiculoSalidaDTO;
 import DTOs.VehiculoNuevoDTO;
 import DTOs.VehiculoViejoDTO;
 import Entidades.Vehiculo;
@@ -38,6 +40,22 @@ public class VehiculoMapper {
                 v.getModelo(), 
                 v.getTipo(), 
                 Integer.valueOf(v.getIdPersona())
+        );
+    }
+    
+    public static SeleccionarVehiculoDTO toDTO(SeleccionarVehiculoSalidaDTO v) {
+        if (v == null) {
+            return null;
+        }
+        return new SeleccionarVehiculoDTO(
+                String.valueOf(v.getId()), 
+                v.getNumPlacas(), 
+                v.getNumSerie(), 
+                v.getMarca(), 
+                v.getLinea(), 
+                v.getColor(), 
+                v.getModelo(), 
+                v.getTipo()
         );
     }
 }

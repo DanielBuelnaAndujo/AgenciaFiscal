@@ -1,7 +1,7 @@
 package Interfaces;
 
+import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoNuevoDTO;
-import DTOs.VehiculoViejoDTO;
 import Exception.NegocioException;
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface IVehiculoBO {
     
-    public List<VehiculoViejoDTO> obtenerVehiculos(String idPersona, String numPlacas) throws NegocioException;
+    public List<SeleccionarVehiculoDTO> obtenerVehiculos(String idPersona, String numPlacas) throws NegocioException;
     public boolean registrarVehiculo(VehiculoNuevoDTO vehiculo) throws NegocioException;
     
 }

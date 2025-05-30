@@ -2,6 +2,7 @@ package DAOs;
 
 import Conexion.ConexionBD;
 import Conexion.IConexionBD;
+import DTOs.SeleccionarVehiculoSalidaDTO;
 import Entidades.Vehiculo;
 import Exception.PersistenciaException;
 import Interfaces.IVehiculoDAO;
@@ -25,7 +26,7 @@ public class VehiculoDAO implements IVehiculoDAO {
     }
     
     @Override
-    public List<Vehiculo> obtenerVehiculos(String idPersona, String numPlacas) throws PersistenciaException {
+    public List<SeleccionarVehiculoSalidaDTO> obtenerVehiculos(String idPersona, String numPlacas) throws PersistenciaException {
         String consultaSQL = "{CALL consultar_vehiculo_por_idPersona_y_numPlaca(?, ?)}";
         
         try (Connection con = conexion.crearConexion();
@@ -34,19 +35,20 @@ public class VehiculoDAO implements IVehiculoDAO {
             cb.setInt(1, Integer.valueOf(idPersona));
             cb.setString(2, numPlacas);
             
-            List<Vehiculo> vehiculos = new ArrayList<>();
+            List<SeleccionarVehiculoSalidaDTO> vehiculos = new ArrayList<>();
             
             try(ResultSet rs = cb.executeQuery()) {
                 while (rs.next()) {
-                    vehiculos.add(new Vehiculo(
-                            rs.getString("numero"),
-                            rs.getString("marca"),
-                            rs.getString("linea"),
-                            rs.getString("color"),
-                            rs.getString("modelo"),
-                            rs.getString("tipo"),
-                            rs.getInt("idPersona")
-                    ));
+                    vehiculos.add(new SeleccionarVehiculoSalidaDTO(
+                            rs.getInt("id"), 
+                            rs.getString("numero"), 
+                            rs.getString("numSerie"), 
+                            rs.getString("marca"), 
+                            rs.getString("linea"), 
+                            rs.getString("color"), 
+                            rs.getString("modelo"), 
+                            rs.getString("tipo")
+                    ));      
                 }
             }
             

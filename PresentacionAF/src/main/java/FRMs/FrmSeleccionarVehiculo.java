@@ -2,6 +2,7 @@ package FRMs;
 
 import Control.ControlNavegacion;
 import DTOs.PersonaViejaDTO;
+import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoViejoDTO;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
         
         PersonaViejaDTO p = control.getPersonaVieja();
         
-        List<VehiculoViejoDTO> vehiculos = control.obtenerVehiculos(
+        List<SeleccionarVehiculoDTO> vehiculos = control.obtenerVehiculos(
                 p.getId(),
                 txfNoPlaca.getText()
         );
@@ -107,9 +108,9 @@ public class FrmSeleccionarVehiculo extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(91, 91, 91)
                 .addComponent(jLabel7)
-                .addGap(66, 66, 66)
+                .addGap(75, 75, 75)
                 .addComponent(jLabel8)
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(399, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

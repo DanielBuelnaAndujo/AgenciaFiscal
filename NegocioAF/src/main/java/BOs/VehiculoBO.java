@@ -1,7 +1,8 @@
 package BOs;
 
+import DTOs.SeleccionarVehiculoDTO;
+import DTOs.SeleccionarVehiculoSalidaDTO;
 import DTOs.VehiculoNuevoDTO;
-import DTOs.VehiculoViejoDTO;
 import Entidades.Vehiculo;
 import Exception.NegocioException;
 import Exception.PersistenciaException;
@@ -24,12 +25,12 @@ public class VehiculoBO implements IVehiculoBO {
     }
     
     @Override
-    public List<VehiculoViejoDTO> obtenerVehiculos(String idPersona, String numPlacas) throws NegocioException {
+    public List<SeleccionarVehiculoDTO> obtenerVehiculos(String idPersona, String numPlacas) throws NegocioException {
         try {
-            List<Vehiculo> vehiculos = vehiculoDAO.obtenerVehiculos(idPersona, numPlacas);
+            List<SeleccionarVehiculoSalidaDTO> vehiculos = vehiculoDAO.obtenerVehiculos(idPersona, numPlacas);
             
             return vehiculos.stream()
-                            .map(VehiculoMapper::toViejoDTO)
+                            .map(VehiculoMapper::toDTO)
                             .collect(Collectors.toList());
         } catch(PersistenciaException e) {
             throw new NegocioException(e.getMessage());

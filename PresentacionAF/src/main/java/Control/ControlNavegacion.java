@@ -3,6 +3,7 @@ package Control;
 import DTOs.HistorialPlacasDTO;
 import DTOs.PersonaViejaDTO;
 import DTOs.PlacasNuevasDTO;
+import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoNuevoDTO;
 import DTOs.VehiculoViejoDTO;
 import Entidades.Persona;
@@ -123,7 +124,7 @@ public class ControlNavegacion {
         }
     }
     
-    public List<VehiculoViejoDTO> obtenerVehiculos(String idPersona, String numPlacas) {
+    public List<SeleccionarVehiculoDTO> obtenerVehiculos(String idPersona, String numPlacas) {
         try {
             return vehiculoBO.obtenerVehiculos(idPersona, numPlacas);
         } catch(NegocioException e) {
