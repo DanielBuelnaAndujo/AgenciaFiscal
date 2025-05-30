@@ -1,6 +1,6 @@
 package Control;
 
-import Entidades.Tarjeta;
+import DTOs.TarjetaDTO;
 
 /**
  *
@@ -8,6 +8,6 @@ import Entidades.Tarjeta;
  */
 public interface IGestorPagos {
     
-    public boolean validarTarjeta(Tarjeta t);
+    public boolean validarTarjeta(TarjetaDTO t);
     
 }

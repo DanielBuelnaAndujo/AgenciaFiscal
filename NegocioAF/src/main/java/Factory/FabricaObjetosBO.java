@@ -1,8 +1,11 @@
 package Factory;
 
+import BOs.GestorPagosBO;
 import BOs.PersonaBO;
 import BOs.PlacasBO;
 import BOs.VehiculoBO;
+import Control.GestorPagos;
+import Control.IGestorPagos;
 import DAOs.PersonaDAO;
 import DAOs.PlacasDAO;
 import DAOs.VehiculoDAO;
@@ -12,6 +15,7 @@ import Interfaces.IPlacasBO;
 import Interfaces.IPlacasDAO;
 import Interfaces.IVehiculoBO;
 import Interfaces.IVehiculoDAO;
+import Interfaces.IGestorPagosBO;
 
 /**
  *
@@ -35,5 +39,11 @@ public class FabricaObjetosBO {
         IVehiculoDAO vehiculoDAO = new VehiculoDAO();
         IVehiculoBO vehiculoBO = new VehiculoBO(vehiculoDAO);
         return vehiculoBO;
+    }
+    
+    public static IGestorPagosBO obtenerGestorPagosBO() {
+        IGestorPagos gestorPagos = new GestorPagos();
+        IGestorPagosBO pagosBO = new GestorPagosBO(gestorPagos);
+        return pagosBO;
     }
 }

@@ -4,6 +4,7 @@ import DTOs.HistorialPlacasDTO;
 import DTOs.PersonaViejaDTO;
 import DTOs.PlacasNuevasDTO;
 import DTOs.SeleccionarVehiculoDTO;
+import DTOs.TarjetaDTO;
 import DTOs.VehiculoNuevoDTO;
 import DTOs.VehiculoViejoDTO;
 import Exception.NegocioException;
@@ -17,6 +18,7 @@ import FRMs.FrmSeleccionarPersona;
 import FRMs.FrmSeleccionarVehiculo;
 import FRMs.FrmTramites;
 import Factory.FabricaObjetosBO;
+import Interfaces.IGestorPagosBO;
 import Interfaces.IPersonaBO;
 import Interfaces.IPlacasBO;
 import Interfaces.IVehiculoBO;
@@ -36,6 +38,7 @@ public class ControlNavegacion {
     private IPersonaBO personaBO = FabricaObjetosBO.obtenerPersonaBO();
     private IPlacasBO placasBO = FabricaObjetosBO.obtenerPlacasBO();
     private IVehiculoBO vehiculoBO = FabricaObjetosBO.obtenerVehiculoBO();
+    private IGestorPagosBO gestorPagosBO = FabricaObjetosBO.obtenerGestorPagosBO();
             
     private PersonaViejaDTO personaVieja;
     private VehiculoNuevoDTO vehiculoNuevo = new VehiculoNuevoDTO();
@@ -195,6 +198,18 @@ public class ControlNavegacion {
         }
         
         return new ArrayList<>();
+    }
+    
+    public boolean validarTarjeta(TarjetaDTO t) {
+        try {
+            boolean exito = gestorPagosBO.validarTarjeta(t);
+            
+            return exito;
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return false;
     }
             
 }

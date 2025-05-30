@@ -2,6 +2,7 @@ package Interfaces;
 
 import DTOs.HistorialPlacasDTO;
 import DTOs.PlacasNuevasDTO;
+import DTOs.TarjetaDTO;
 import Exception.NegocioException;
 import java.time.LocalDate;
 import java.util.List;
