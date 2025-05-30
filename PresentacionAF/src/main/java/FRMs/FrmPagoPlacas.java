@@ -1,6 +1,9 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -16,6 +19,8 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
     public FrmPagoPlacas() {
         initComponents();
         setTitle("Pago Placas");
+        
+        txfCantidadPagar.setText(control.getCostoLicensia().toString());
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -57,10 +62,8 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText("Cambio:");
 
-        txfPago.setEditable(false);
         txfPago.setBackground(new java.awt.Color(217, 217, 217));
         txfPago.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txfPago.setText("100");
         txfPago.setBorder(null);
 
         txfCantidadPagar.setEditable(false);
@@ -91,6 +94,11 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
         btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPagar.setForeground(new java.awt.Color(255, 255, 255));
         btnPagar.setText("Pagar");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,6 +156,23 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
                 .addGap(50, 50, 50))
         );
 
+        txfPago.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calcularCambio();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                calcularCambio();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,6 +192,37 @@ public class FrmPagoPlacas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        
+        if (txfPago.getText().matches("\\d+")) {
+            double cantidadPagar = control.getCostoLicensia();
+            int pago = Integer.valueOf(txfPago.getText());
+            
+            if (pago < cantidadPagar) {
+                JOptionPane.showMessageDialog(null, "Cantidad Insuficiente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                control.registrarVehiculo();
+
+                control.mostrarFrmSeleccionarVehiculo();
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cantidad Ivalida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPagarActionPerformed
+
+    private void calcularCambio() {
+        if (txfPago.getText().matches("\\d+")) {
+            double cantidadPagar = control.getCostoLicensia();
+            int pago = Integer.valueOf(txfPago.getText());
+            if ((pago - cantidadPagar) < 0) {
+                txfCambio.setText("Cantidad Insuficiente");
+            } else {
+                txfCambio.setText(String.valueOf(pago - cantidadPagar));
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

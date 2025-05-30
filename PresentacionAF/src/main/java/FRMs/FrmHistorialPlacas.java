@@ -1,6 +1,9 @@
 package FRMs;
 
 import Control.ControlNavegacion;
+import DTOs.HistorialPlacasDTO;
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -17,9 +20,12 @@ public class FrmHistorialPlacas extends javax.swing.JFrame {
         initComponents();
         setTitle("Historial Placas");
         
-        for (int i = 0; i < 10; i++) {
-            pnlContenedor.add(new PnlPlaca());
-        }
+        List<HistorialPlacasDTO> placas = control.obtenerHistorialPlacas(
+                control.getVehiculoViejoDTO().getId(),
+                null
+        );
+        
+        placas.forEach(p -> pnlContenedor.add(new PnlPlacas(p)));
         
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

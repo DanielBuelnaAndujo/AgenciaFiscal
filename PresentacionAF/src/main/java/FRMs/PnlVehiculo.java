@@ -133,6 +133,8 @@ public class PnlVehiculo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHistorialPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPlacasActionPerformed
+        ControlNavegacion.getInstancia().getVehiculoViejoDTO().setId(vehiculo.getId());
+        
         ControlNavegacion.getInstancia().mostrarFrmHistorialPlacas();
         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_btnHistorialPlacasActionPerformed

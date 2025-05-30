@@ -34,20 +34,31 @@ public class PlacasDAO implements IPlacasDAO {
         try (Connection con = conexion.crearConexion();
                 CallableStatement cb = con.prepareCall(consultaSQL)) {
             
+            Date fecha = null;
+            if (fechaTramite != null) {
+                fecha = Date.valueOf(fechaTramite);
+            }
+            
             cb.setInt(1, Integer.valueOf(idVehiculo));
-            cb.setDate(2, Date.valueOf(fechaTramite));
+            cb.setDate(2, fecha);
             
             List<HistorialPlacasDTO> placas = new ArrayList<>();
             
             try(ResultSet rs = cb.executeQuery()) {
                while (rs.next()) {
-                   placas.add(new HistorialPlacasDTO(
+                   HistorialPlacasDTO placasDTO = new HistorialPlacasDTO(
                            rs.getString("numero"),
                            rs.getString("estado"),
                            rs.getDate("fecha").toLocalDate(),
-                           rs.getDouble("costo"),
-                           rs.getDate("fechaRecepcion").toLocalDate()
-                   ));
+                           rs.getDouble("costo")
+                   );
+                   if (rs.getDate("fechaRecepcion") == null) {
+                       placasDTO.setFechaRecepcion(null);
+                   } else {
+                       placasDTO.setFechaRecepcion(rs.getDate("fechaRecepcion").toLocalDate());
+                   }
+                   
+                   placas.add(placasDTO);
                } 
             }
             

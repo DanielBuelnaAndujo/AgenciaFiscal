@@ -25,6 +25,13 @@ public class HistorialPlacasDTO {
         this.fechaRecepcion = fechaRecepcion;
     }
 
+    public HistorialPlacasDTO(String numero, String estado, LocalDate fechaTramite, Double costo) {
+        this.numero = numero;
+        this.estado = estado;
+        this.fechaTramite = fechaTramite;
+        this.costo = costo;
+    }
+
     public String getNumero() {
         return numero;
     }

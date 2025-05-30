@@ -125,7 +125,6 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="d9" green="d9" red="d9" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>

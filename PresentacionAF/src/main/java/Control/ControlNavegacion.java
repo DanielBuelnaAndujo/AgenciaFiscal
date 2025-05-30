@@ -6,7 +6,6 @@ import DTOs.PlacasNuevasDTO;
 import DTOs.SeleccionarVehiculoDTO;
 import DTOs.VehiculoNuevoDTO;
 import DTOs.VehiculoViejoDTO;
-import Entidades.Persona;
 import Exception.NegocioException;
 import FRMs.FrmHistorialPlacas;
 import FRMs.FrmMenuPrincipal;
@@ -37,7 +36,9 @@ public class ControlNavegacion {
     private IVehiculoBO vehiculoBO = FabricaObjetosBO.obtenerVehiculoBO();
             
     private PersonaViejaDTO personaVieja;
-    private VehiculoNuevoDTO vehiculoNuevo;
+    private VehiculoNuevoDTO vehiculoNuevo = new VehiculoNuevoDTO();
+    private VehiculoViejoDTO vehiculoViejoDTO = new VehiculoViejoDTO();
+    private Double costoLicensia = 0.0;
 
     private ControlNavegacion() {
     }
@@ -47,6 +48,22 @@ public class ControlNavegacion {
             control = new ControlNavegacion();
         }
         return control;
+    }
+
+    public Double getCostoLicensia() {
+        return costoLicensia;
+    }
+
+    public void setCostoLicensia(Double costoLicensia) {
+        this.costoLicensia = costoLicensia;
+    }
+
+    public VehiculoViejoDTO getVehiculoViejoDTO() {
+        return vehiculoViejoDTO;
+    }
+
+    public void setVehiculoViejoDTO(VehiculoViejoDTO vehiculoViejoDTO) {
+        this.vehiculoViejoDTO = vehiculoViejoDTO;
     }
     
     public PersonaViejaDTO getPersonaVieja() {
@@ -134,9 +151,11 @@ public class ControlNavegacion {
         return new ArrayList<>();
     }
     
-    public void registrarVehiculo(VehiculoNuevoDTO vehiculo) {
+    public void registrarVehiculo() {
+        vehiculoNuevo.setIdPersona(personaVieja.getId());
+        
         try {
-            boolean exito = vehiculoBO.registrarVehiculo(vehiculo);
+            boolean exito = vehiculoBO.registrarVehiculo(vehiculoNuevo);
             if (exito) {
                 JOptionPane.showMessageDialog(null, "Se registro el Nuevo Vehiculo con Placas.", "Información", JOptionPane.INFORMATION_MESSAGE);
             }

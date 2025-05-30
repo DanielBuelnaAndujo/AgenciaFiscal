@@ -1,16 +1,30 @@
 package FRMs;
 
+import DTOs.HistorialPlacasDTO;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author daniel
  */
-public class PnlPlaca extends javax.swing.JPanel {
+public class PnlPlacas extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlPlacas
      */
-    public PnlPlaca() {
+    public PnlPlacas(HistorialPlacasDTO p) {
         initComponents();
+        
+        txfNumero.setText(p.getNumero());
+        txfEstado.setText(p.getEstado());
+        
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        txfFechaTramite.setText(p.getFechaTramite().format(formato));
+        txfCosto.setText(p.getCosto().toString());
+        
+        if (p.getFechaRecepcion() != null) {
+            txfFechaRecepcion.setText(p.getFechaRecepcion().format(formato));
+        }
     }
 
     /**
@@ -60,7 +74,6 @@ public class PnlPlaca extends javax.swing.JPanel {
 
         txfFechaRecepcion.setEditable(false);
         txfFechaRecepcion.setBackground(new java.awt.Color(217, 217, 217));
-        txfFechaRecepcion.setText("jTextField1");
         txfFechaRecepcion.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

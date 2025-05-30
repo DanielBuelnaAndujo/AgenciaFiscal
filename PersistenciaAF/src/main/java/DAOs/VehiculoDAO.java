@@ -80,6 +80,7 @@ public class VehiculoDAO implements IVehiculoDAO {
             
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex);
             throw new PersistenciaException("No se pudo registrar el Vehiculo.");
         }
     }
